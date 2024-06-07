@@ -1,8 +1,12 @@
 import router from '@ohos.router'
-
+import promptAction from '@ohos.promptAction'
 @Entry
 @Component
 struct Login {
+  private   userName:string ='';
+  private   passWorld:string='';
+@State  showLoading:boolean=false;
+
   build() {
     Column() {
       Image($r("app.media.icon"))
@@ -22,6 +26,10 @@ struct Login {
         TextInput({ placeholder: "账号" })
           .width('93%')
           .maxLength(18)
+          .onChange((value)=>{
+            this.userName=value;
+          })
+          .backgroundColor(Color.White)
       }
       .margin({ left: 20, right: 20, top: 50 })
 
@@ -30,13 +38,18 @@ struct Login {
           .width("7%")
         TextInput({ placeholder: "密码" }).width('93%')
           .maxLength(18)
+          .type(InputType.Password)
+        .onChange((value)=>{
+          this.passWorld=value;
+        })
+          .backgroundColor(Color.White)
       }
       .margin({ left: 20, right: 20, top: 20 })
 
 
       Row() {
         Text("忘记密码")
-          .fontColor(Color.Grey)
+          .fontColor(Color.Black)
           .fontWeight(FontWeight.Medium)
           .onClick(() => {
             router.pushUrl({
@@ -52,25 +65,40 @@ struct Login {
       Row({ space: '50vp' }) {
         Button("登录")
           .onClick(() => {
-            router.pushUrl({
-              url: "pages/homePage"
-            })
+            if(this.userName===''||this.passWorld===''){
+              promptAction.showToast({message:'用户名或密码错误'})
+            }else{
+              this.showLoading=true;
+              setTimeout(()=>{
+                this.showLoading=false;
+                promptAction.showToast({message:'登录成功'})
+                router.pushUrl({url:'pages/MainPage'})
+              },3000)
+
+            }
           })
           .type(ButtonType.Normal)
           .width('150vp')
         Button("注册")
           .onClick(() => {
             router.pushUrl({
-              url: "pages/register"
+              url: "pages/RegisterPage"
             })
           })
           .width('150vp')
           .type(ButtonType.Normal)
       }
       .margin({ top: 60 })
-
+      if(this.showLoading){
+        LoadingProgress()
+          .color(Color.Blue)
+          .width('50vp')
+          .height('50vp')
+      }
+      Blank()
       Text("其他登录方式")
         .margin({ top: 50 })
+
       Divider()
         .margin({ top: 20 })
 
@@ -79,13 +107,14 @@ struct Login {
         Image($r("app.media.QQ"))
           .width('80vp')
           .onClick(() => {
-
+            promptAction.showToast({message:"功能未开放"})
           })
 
         Image($r("app.media.wechat"))
           .width('80vp')
           .margin({ left: 40 })
           .onClick(() => {
+            promptAction.showToast({message:"功能未开放"})
 
           })
 
@@ -93,7 +122,7 @@ struct Login {
           .width('80vp')
           .margin({ left: 40 })
           .onClick(() => {
-
+            promptAction.showToast({message:"功能未开放"})
           })
       }
       .width('90%')
@@ -102,9 +131,8 @@ struct Login {
     }
     .width("100%")
     .height("100%")
-    //.backgroundColor('#00fcfcfc')
 
-    .backgroundImage($r("app.media.Login_Bg2"))
+    .backgroundImage($r("app.media.Login_BG3"))
     .backgroundImageSize(ImageSize.Cover)
   }
 }

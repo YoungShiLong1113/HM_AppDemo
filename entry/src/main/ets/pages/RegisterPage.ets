@@ -37,7 +37,7 @@ struct register {
               .fontSize(20)
               .onClick(() => {
                 router.pushUrl(({
-                  url: 'pages/Login'
+                  url: 'pages/LoginPage'
                 }))
               })
 
@@ -49,7 +49,7 @@ struct register {
       }
       .height('100%')
 
-    .backgroundImage($r("app.media.Login_Bg2"))
+    .backgroundImage($r("app.media.Login_BG3"))
     .backgroundImageSize(ImageSize.Cover)
 
   }
