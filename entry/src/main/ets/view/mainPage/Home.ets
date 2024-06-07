@@ -1,61 +1,90 @@
 @Entry
 @Component
-export struct Home {
+export  struct Home {
   private swiperController = new SwiperController()
 
   build() {
     Scroll() {
-      Column({space:'20vp'}) {
+      Column() {
         Row() {
           Text('主页')
-            .margin({ left: '20vp', top: '20vp' })
             .fontWeight(FontWeight.Bold)
             .fontSize(30)
-        }
-        .width('100%')
+            .margin({ left: '30vo', top: '40vp' })
+        }.width('100%')
 
-        Swiper(this.swiperController) { //TODO 找四张轮播照片，并修改地址，图片尺寸保持一致
-          Image($r("app.media.QQ"))
-          Image($r("app.media.wechat"))
-          Image($r("app.media.weibo"))
+        Swiper(this.swiperController) { //TODO 进行图片轮播
+          Image($r('app.media.QQ'))
+
+          Image($r('app.media.wechat'))
+          Image($r('app.media.weibo'))
         }
+        .borderRadius(20)
+        .width('90%')
         .autoPlay(true)
-        .width('50%')
-        //.height('10%')
-        //.borderRadius(20)
+        .margin({ top: '40vp' })
+
+        Grid() {
+          GridItem() {
+            Column() {
+              Image($r('app.media.app_icon')).width('25vp')
+              Text('我的设备')
+            }
+            .margin({ left: '5vp', top: '5vp' })
+            .height('50vp')
+          }
+
+          GridItem() {
+            Column() {
+              Image($r('app.media.app_icon')).width('25vp')
+              Text('历史记录')
+            }
+            .margin({ left: '5vp', top: '5vp' })
+            .height('50vp')
+          }
+
+          GridItem() {
+            Column() {
+              Image($r('app.media.app_icon')).width('25vp')
+              Text('消息')
+            }
+            .margin({ left: '5vp', top: '5vp' })
+            .height('50vp')
+          }
+
+        }
+        .columnsTemplate('1fr,1fr,1fr,1fr,1fr')
+        .rowsTemplate('1fr,1fr,1fr,1fr,1fr')
+        .width('90%')
+        .height('15%')
+        .borderRadius(20)
+        .backgroundColor(Color.White)
+
+
+        Row() {
+          Text('设备')
+            .fontWeight(FontWeight.Bold)
+            .fontSize(20)
+            .margin({ left: '30vo', top: '40vp' })
+        }.width('100%')
+      }
+      Grid() {
+        GridItem() {
+          Column() {
+            Text('我的设备')
+          }
+          .margin({ left: '5vp', top: '5vp' })
+          .height('50vp')
+        }
       }
       .width('100%')
       .height('100%')
-      .margin({ top: '40vp' })
+      .backgroundColor('#36335f65')
       // .alignItems(HorizontalAlign.Start)
 
-      Grid() { //TODO 不显示？？？
-        GridItem() {
-          Column(){
 
-            Image($r("app.media.app_icon")).width('25vp')
-            Text('我的设备')
-          }.height('30vp')
-          .backgroundColor(Color.Black)
-        }
-        GridItem() {
-          Text('消息')
-        }
 
-        GridItem() {
-          Text('购物车')
-        }
-      }
-      .columnsTemplate('1fr,1fr,1fr,1fr,1fr')
-      .rowsTemplate('1fr,1fr,1fr,1fr,1fr')
-      .width('100%')
-      .height('30%')
-      .backgroundColor(Color.Red)
 
     }
-    .width('100%')
-    .height('100%')
-    .backgroundColor('#0c334455')
-
   }
 }
